@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 import axios from 'axios'
 import FriendsList from './components/friends_list/FriendsList'
-import styled from 'styled-components'
+
 
 
 

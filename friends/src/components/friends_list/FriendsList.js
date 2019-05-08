@@ -7,42 +7,78 @@ const FormWrapper = styled.form`
   width: 300px;
   margin: 0 auto;
   padding-bottom: 30px;
-    button{
-      display: block;
-      margin: 10px auto;
-      padding: 10px;
-      background-color: black;
-      color: white;
-      font-size: 16px;
-    }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+  }
 `;
 
 const WrapperDiv = styled.div`
   text-align: center;
 `;
 
-const Friends = props => {
-  return (
-    <WrapperDiv>
-      <h1>
-        {props.friends.data.map(friend => (
-          <div>{friend.name}</div>
-        ))}
-      </h1>
+class FriendList extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <FormWrapper placeholder="type here" type="text" onSubmit>
-        <p>id</p>
-        <input type="text" />
-        <p>Name</p>
-        <input />
-        <p>image</p>
-        <input />
-        <p>email</p>
-        <input />
-        <button>Add Friend</button>
-      </FormWrapper>
-    </WrapperDiv>
-  );
-};
+    this.state = {
+      friend: {
+        name: "",
+        age: "",
+        email: ""
+      }
+    };
+  }
 
-export default Friends;
+  textChangeHandler = event => {
+    const text = event.target.value;
+    this.setState({
+      ...this.state,
+      friend: {
+        [event.target.name]: text
+      }
+    });
+    console.log(this.state.friend.name);
+  };
+
+  render() {
+    return (
+      <WrapperDiv>
+        <h1>
+          {this.props.friends.data.map((friend, index) => (
+            <div key={index}>{friend.name}</div>
+          ))}
+        </h1>
+
+        <FormWrapper placeholder="type here" type="text" onSubmit={() => {}}>
+          <p>name</p>
+          <input
+            onChange={this.textChangeHandler}
+            type="text"
+            value={this.state.friend.name}
+            name={"name"}
+          />
+          <p>age</p>
+          <input
+            onChange={this.textChangeHandler}
+            type="text"
+            value={this.state.friend.age}
+            name={"age"}
+          />
+          <p>email</p>
+          <input 
+          type="text" 
+          value={this.state.friend.email}
+          name={"email"}
+          />
+          <button>Add Friend</button>
+        </FormWrapper>
+      </WrapperDiv>
+    );
+  }
+}
+export default FriendList;
