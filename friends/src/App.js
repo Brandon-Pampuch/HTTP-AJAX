@@ -32,17 +32,18 @@ class Friends extends React.Component {
       });
   }
 
-  // updateFriend(updatedFriend) {
-  //   axios
-  //     .put(`http://localhost:5000/friends/${updatedFriend.id}`, updatedFriend)
-  //     .then(res => {
-  //       this.setState({ friends: res.data})
-  //       console.log(res);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
+  updateFriend(updatedFriend) {
+    axios
+      .put(`http://localhost:5000/friends/${updatedFriend.id}`, updatedFriend)
+      .then(res => {
+        this.setState({ friends: res.data})
+        this.props.history.push("/")
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   deleteFriend(id) {
     axios
@@ -58,10 +59,10 @@ class Friends extends React.Component {
 
   //helper functions
 
-  // setUpdateForm = friend => {
-  //   this.setState({activeFriend:friend})
-  //   this.props.history.push('/updateForm')
-  // }
+  setUpdateForm = friend => {
+    this.setState({activeFriend:friend})
+    this.props.history.push('/updateForm')
+  }
 
   render() {
     if (!this.state.friends.data) {
@@ -76,17 +77,17 @@ class Friends extends React.Component {
           addNewFriend={this.addNewFriend}
           deleteFriend={this.deleteFriend}
           updateFriend={this.updateFriend}
-          // setUpdateForm={this.setUpdateForm}
+          setUpdateForm={this.setUpdateForm}
           />
         
         }/>
-        {/* <Route path="/updateForm" render={(props)=>     
+        <Route path="/updateForm" render={(props)=>     
         <UpdateForm {...props} updateFriend={this.updateFriend} activeFriend={this.state.activeFriend}/>
          
         
           
         
-        }/> */}
+        }/>
         </>
       )
     }

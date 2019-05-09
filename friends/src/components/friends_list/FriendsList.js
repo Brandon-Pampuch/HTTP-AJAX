@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
 
 const FormWrapper = styled.form`
   text-align: center;
@@ -71,11 +71,11 @@ class FriendList extends React.Component {
     location.reload();
   };
 
-  // updateForm = (event) =>{
-  //   event.preventDefault()
-  //   this.props.history.push('/updateForm')
+  updateForm = (event) =>{
+    event.preventDefault()
+    this.props.history.push('/updateForm')
 
-  // }
+  }
   
 
   render() {
@@ -84,17 +84,17 @@ class FriendList extends React.Component {
       <WrapperDiv>
         <h1>
           {this.props.friends.data.map((friend, index) => (
-            <Link to={`/${friend.id}`}>
+         
               <div key={index}>
                 <button onClick={() => this.deleteFriend(friend.id)}>x</button>
                 <div>
                   Name: {friend.name} Age: {friend.age} Email: {friend.email}
-                  <button>Update Friend</button>
+                  <button onClick={()=>this.updateFriend(friend)} >Update Friend</button>
                 </div>
               </div>
-            </Link>
+         
           ))}
-          {/* onClick={this.updateFriend(friend)} */}
+    
         </h1>
 
         <FormWrapper
