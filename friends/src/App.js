@@ -21,6 +21,15 @@ class Friends extends React.Component {
      })
    }
 
+   addNewFriend(friend) {
+     axios.post("http://localhost:5000/friends/",friend)
+     .then(res => {
+        console.log(res)
+     }).catch(err =>{
+       console.log(err)
+     })
+   }
+
 
   render() { 
         if(!this.state.friends.data){
@@ -28,7 +37,7 @@ class Friends extends React.Component {
         }else{
     return ( 
       <div>
-     <FriendsList friends={this.state.friends}/>
+     <FriendsList friends={this.state.friends} addNewFriend={this.addNewFriend}/>
     
        </div>
      )}

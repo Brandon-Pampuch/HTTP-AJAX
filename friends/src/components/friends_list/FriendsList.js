@@ -39,11 +39,23 @@ class FriendList extends React.Component {
     this.setState({
       ...this.state,
       friend: {
+        ...this.state.friend,
         [event.target.name]: text
+     
       }
     });
-    console.log(this.state.friend.name);
+    console.log("age",this.state.friend.age);
+    console.log("name",this.state.friend.name);
+    console.log("email",this.state.friend.email);
   };
+
+  addNewFriend = (event) => {
+    event.preventDefault()
+
+
+    this.props.addNewFriend(this.state.friend)
+  }
+
 
   render() {
     return (
@@ -54,7 +66,7 @@ class FriendList extends React.Component {
           ))}
         </h1>
 
-        <FormWrapper placeholder="type here" type="text" onSubmit={() => {}}>
+        <FormWrapper placeholder="type here" type="text" onSubmit={this.addNewFriend}>
           <p>name</p>
           <input
             onChange={this.textChangeHandler}
@@ -71,6 +83,7 @@ class FriendList extends React.Component {
           />
           <p>email</p>
           <input 
+          onChange={this.textChangeHandler}
           type="text" 
           value={this.state.friend.email}
           name={"email"}
