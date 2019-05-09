@@ -5,8 +5,11 @@ const FormWrapper = styled.form`
   text-align: center;
   border: 1px solid black;
   width: 300px;
+  height: 300px;
   margin: 0 auto;
+  margin-top: 50px;
   padding-bottom: 30px;
+  font-size: 16px;
   button {
     display: block;
     margin: 20px auto;
@@ -18,7 +21,10 @@ const FormWrapper = styled.form`
 `;
 
 const WrapperDiv = styled.div`
-  text-align: center;
+  text-align: left;
+  display:flex;
+  font-size: 12px;
+  padding-left: 100px;
 `;
 
 class FriendList extends React.Component {
@@ -49,20 +55,31 @@ class FriendList extends React.Component {
     console.log("email",this.state.friend.email);
   };
 
-  addNewFriend = (event) => {
-    event.preventDefault()
-
-
+  addNewFriend = () => {
     this.props.addNewFriend(this.state.friend)
+  }
+
+  deleteFriend = (id) => {
+
+    this.props.deleteFriend(id)
+  //eslint-disable-next-line no-restricted-globals
+    location.reload()
+
   }
 
 
   render() {
+    console.log(this.props.friend)
     return (
       <WrapperDiv>
         <h1>
           {this.props.friends.data.map((friend, index) => (
-            <div key={index}>{friend.name}</div>
+           
+            <div key={index}>
+            <button onClick={()=>this.deleteFriend(friend.id) }>x</button>
+            <div>Name: {friend.name} Age: {friend.age}  Email: {friend.email} </div>
+          
+            </div>
           ))}
         </h1>
 

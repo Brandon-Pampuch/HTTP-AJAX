@@ -30,6 +30,25 @@ class Friends extends React.Component {
      })
    }
 
+  updateFriend(friend) {
+    axios.put()
+    .then(res => {
+      console.log(res)
+   }).catch(err =>{
+     console.log(err)
+   })
+  }
+
+  deleteFriend(id) {
+    axios.delete(`http://localhost:5000/friends/${id}`)
+    .then(res => {
+    const friends = res
+    this.setState({friends:friends})
+   }).catch(err =>{
+     console.log(err)
+   })
+  }
+
 
   render() { 
         if(!this.state.friends.data){
@@ -37,7 +56,7 @@ class Friends extends React.Component {
         }else{
     return ( 
       <div>
-     <FriendsList friends={this.state.friends} addNewFriend={this.addNewFriend}/>
+     <FriendsList friends={this.state.friends} addNewFriend={this.addNewFriend} deleteFriend={this.deleteFriend} />
     
        </div>
      )}
