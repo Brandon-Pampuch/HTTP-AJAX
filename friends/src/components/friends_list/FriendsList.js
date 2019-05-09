@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const FormWrapper = styled.form`
   text-align: center;
@@ -17,12 +18,13 @@ const FormWrapper = styled.form`
     background-color: black;
     color: white;
     font-size: 16px;
+  
   }
 `;
 
 const WrapperDiv = styled.div`
   text-align: left;
-  display:flex;
+  display: flex;
   font-size: 12px;
   padding-left: 100px;
 `;
@@ -47,43 +49,59 @@ class FriendList extends React.Component {
       friend: {
         ...this.state.friend,
         [event.target.name]: text
-     
       }
     });
-    console.log("age",this.state.friend.age);
-    console.log("name",this.state.friend.name);
-    console.log("email",this.state.friend.email);
+    console.log("age", this.state.friend.age);
+    console.log("name", this.state.friend.name);
+    console.log("email", this.state.friend.email);
   };
 
   addNewFriend = () => {
-    this.props.addNewFriend(this.state.friend)
-  }
+    this.props.addNewFriend(this.state.friend);
+  };
 
-  deleteFriend = (id) => {
+  updateFriend = () => {
 
-    this.props.deleteFriend(id)
-  //eslint-disable-next-line no-restricted-globals
-    location.reload()
+    this.props.setUpdateForm()
+  };
 
-  }
+  deleteFriend = id => {
+    this.props.deleteFriend(id);
+    //eslint-disable-next-line no-restricted-globals
+    location.reload();
+  };
 
+  // updateForm = (event) =>{
+  //   event.preventDefault()
+  //   this.props.history.push('/updateForm')
+
+  // }
+  
 
   render() {
-    console.log(this.props.friend)
+    console.log(this.props.friend);
     return (
       <WrapperDiv>
         <h1>
           {this.props.friends.data.map((friend, index) => (
-           
-            <div key={index}>
-            <button onClick={()=>this.deleteFriend(friend.id) }>x</button>
-            <div>Name: {friend.name} Age: {friend.age}  Email: {friend.email} </div>
-          
-            </div>
+            <Link to={`/${friend.id}`}>
+              <div key={index}>
+                <button onClick={() => this.deleteFriend(friend.id)}>x</button>
+                <div>
+                  Name: {friend.name} Age: {friend.age} Email: {friend.email}
+                  <button>Update Friend</button>
+                </div>
+              </div>
+            </Link>
           ))}
+          {/* onClick={this.updateFriend(friend)} */}
         </h1>
 
-        <FormWrapper placeholder="type here" type="text" onSubmit={this.addNewFriend}>
+        <FormWrapper
+          placeholder="type here"
+          type="text"
+          onSubmit={this.addNewFriend}
+        >
           <p>name</p>
           <input
             onChange={this.textChangeHandler}
@@ -99,14 +117,16 @@ class FriendList extends React.Component {
             name={"age"}
           />
           <p>email</p>
-          <input 
-          onChange={this.textChangeHandler}
-          type="text" 
-          value={this.state.friend.email}
-          name={"email"}
+          <input
+            onChange={this.textChangeHandler}
+            type="text"
+            value={this.state.friend.email}
+            name={"email"}
           />
-          <button>Add Friend</button>
+          <button >Add Friend</button>
+        
         </FormWrapper>
+  
       </WrapperDiv>
     );
   }
