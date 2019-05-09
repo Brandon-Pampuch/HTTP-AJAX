@@ -60,9 +60,9 @@ class FriendList extends React.Component {
     this.props.addNewFriend(this.state.friend);
   };
 
-  updateFriend = () => {
+  updateFriend = (friend) => {
 
-    this.props.setUpdateForm()
+    this.props.setUpdateForm(friend)
   };
 
   deleteFriend = id => {
@@ -71,11 +71,11 @@ class FriendList extends React.Component {
     location.reload();
   };
 
-  updateForm = (event) =>{
-    event.preventDefault()
-    this.props.history.push('/updateForm')
+  // updateForm = (event) =>{
+  //   event.preventDefault()
+  //   this.props.history.push('/updateForm')
 
-  }
+  // }
   
 
   render() {
