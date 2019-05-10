@@ -1,0 +1,61 @@
+  //app.js
+  
+//get smurf
+
+  componentDidMount = () => {
+    axios.get("http://localhost:3333/smurfs")
+    .then(res => {
+      const smurfs = res;
+      this.setState({ smurfs: smurfs });
+      console.log(this.state.smurfs);
+    
+    });
+  }
+
+
+//Router
+
+import {BrowserRouter as Router} from 'react-router-dom'
+
+
+ReactDOM.render(
+    <Router>
+        <App />
+    </Router>
+
+, document.getElementById('root'));
+
+// post smurf
+
+  addNewSmurf = (state?) => {
+    axios
+      
+      .post("http://localhost:3333/smurfs", smurf)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+//(res => this.setState({smurfs: res.data }))
+
+the code in the function is just the reset
+
+addNewSmurf = (id) => {
+    axios
+      
+      .delete("http://localhost:3333/smurfs/:id", smurf)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  //(res => this.setState({smurfs: res.data }))
+
+  //this.props.history.push // to return to pages
+
+  call delete on click that calls delete in app

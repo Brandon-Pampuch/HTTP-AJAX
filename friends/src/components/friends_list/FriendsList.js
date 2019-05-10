@@ -34,6 +34,7 @@ class FriendList extends React.Component {
     super(props);
 
     this.state = {
+
       friend: {
         name: "",
         age: "",
@@ -60,9 +61,11 @@ class FriendList extends React.Component {
     this.props.addNewFriend(this.state.friend);
   };
 
-  updateFriend = (friend) => {
-
+  updateFriend = (event,friend) => {
+    event.preventDefault()
+    console.log("Friends List", friend)
     this.props.setUpdateForm(friend)
+    this.props.history.push("/updateForm")
   };
 
   deleteFriend = id => {
@@ -89,7 +92,7 @@ class FriendList extends React.Component {
                 <button onClick={() => this.deleteFriend(friend.id)}>x</button>
                 <div>
                   Name: {friend.name} Age: {friend.age} Email: {friend.email}
-                  <button onClick={()=>this.updateFriend(friend)} >Update Friend</button>
+                  <button onClick={(event)=>this.updateFriend(event,friend)} >Update Friend</button>
                 </div>
               </div>
          

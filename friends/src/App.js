@@ -9,20 +9,22 @@ import { Route,} from "react-router-dom/"
 class Friends extends React.Component {
   state = {
     friends: [],
-    activeFriend: null
+    activeFriend: {}
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
     axios.get("http://localhost:5000/friends")
     .then(res => {
       const friends = res;
       this.setState({ friends: friends });
       console.log(this.state.friends);
+    
     });
   }
 
-  addNewFriend(friend) {
+  addNewFriend = (friend) => {
     axios
+      
       .post("http://localhost:5000/friends/", friend)
       .then(res => {
         console.log(res);
@@ -32,25 +34,29 @@ class Friends extends React.Component {
       });
   }
 
-  updateFriend(updatedFriend) {
+  updateFriend = (event,updatedFriend) => {
+    console.log("update freind",updatedFriend)
+    event.preventDefault()
     axios
       .put(`http://localhost:5000/friends/${updatedFriend.id}`, updatedFriend)
       .then(res => {
-        this.setState({ friends: res.data})
+        console.log("update",res)
+        this.setState({ friends: res})
         this.props.history.push("/")
-        console.log(res);
+        console.log("update", res);
       })
       .catch(err => {
         console.log(err);
       });
   }
 
-  deleteFriend(id) {
+  deleteFriend = (id) => {
     axios
       .delete(`http://localhost:5000/friends/${id}`)
       .then(res => {
         const friends = res;
         this.setState({ friends: friends });
+      
       })
       .catch(err => {
         console.log(err);
@@ -60,7 +66,10 @@ class Friends extends React.Component {
   //helper functions
 
   setUpdateForm = friend => {
-    this.setState({activeFriend:friend})
+  
+    this.setState({
+      ...this.state,
+      activeFriend:friend})
     this.props.history.push('/updateForm')
   }
 
@@ -68,7 +77,9 @@ class Friends extends React.Component {
     if (!this.state.friends.data) {
       return <h1>Loading...</h1>;
     } else {
+ 
       return (
+     
         <>
         <Route exact path="/" render={(props)=>     
         <FriendsList

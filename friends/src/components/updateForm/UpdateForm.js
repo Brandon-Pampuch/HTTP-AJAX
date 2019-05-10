@@ -21,12 +21,6 @@ const FormWrapper = styled.form`
   }
 `;
 
-// const WrapperDiv = styled.div`
-//   text-align: left;
-//   display: flex;
-//   font-size: 12px;
-//   padding-left: 100px;
-// `;
 
 class UpdateForm extends React.Component {
   constructor(props) {
@@ -52,41 +46,46 @@ class UpdateForm extends React.Component {
 
 
 
-  updateFriend = () => {
-    this.props.updateFriend(this.state.friend); // need to add route to collect url id
+  updateFriend = (event) => {
+    event.preventDefault()
+    this.props.updateFriend(event,this.state.friend);
+    
+    console.log("update-form", this.state.friend);
+    this.props.history.push("/") // need to add route to collect url id
   };
 
 
   render() {
-    console.log(this.props.friend);
+
+
     return (
 
         <FormWrapper
       
           placeholder="type here"
           type="text"
-          onSubmit={this.updateFriend}
+          onSubmit={(event)=>this.updateFriend(event)}
         >
             <p>update form</p>
           <p>name</p>
           <input
             onChange={this.textChangeHandler}
             type="text"
-            // value={this.state.friend.name}
+            value={this.state.friend.name}
             name={"name"}
           />
           <p>age</p>
           <input
             onChange={this.textChangeHandler}
             type="text"
-            // value={this.state.friend.age}
+            value={this.state.friend.age}
             name={"age"}
           />
           <p>email</p>
           <input
             onChange={this.textChangeHandler}
             type="text"
-            // value={this.state.friend.email}
+            value={this.state.friend.email}
             name={"email"}
           />
           <button>Update Friend</button>
